@@ -11,10 +11,11 @@ jobs:
         uses: actions/checkout@v2
       - name: Markdown to TeX
         uses: actions/setup-python@v1
-        run: python ./ebooks/md-to-tex.py .
+        run: |
+        python ./ebooks/md-to-tex.py .
+        cp ebooks/cover.jpg ebooks/wisdom.md.tex ebooks/wisdom.tex .
       - name: Generate PDF document
         uses: hspaans/latexmk-action@v2.1.0
-        working-directory: ./ebooks
         with:
           format: pdf
           filename: wisdom.tex
