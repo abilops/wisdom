@@ -60,6 +60,7 @@
 }
 \newcommand{\wisdom}[2][]{%
 		% Increment counter only if this is a top
+		\ifstrequal{#1}{}{\stepcounter{wcounter}}{}
 		% break page only if this is a top
 		\ifstrequal{#1}{}{\clearpage}{\\[2em]}
 				\ifstrequal{#1}{}{
