@@ -2,34 +2,6 @@
 name: Build PDF with LaTeX
 
 on: [push]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-      - name: Markdown to TeX
-        uses: actions/setup-python@v1
-        run: |
-          python ./ebooks/md-to-tex.py .
-          cp ebooks/cover.jpg ebooks/wisdom.md.tex ebooks/wisdom.tex .
-      - name: Generate PDF document
-        uses: hspaans/latexmk-action@v2.1.0
-        with:
-          format: pdf
-          filename: wisdom.tex
-          options: -xelatex
-name: CI Workflow
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
