@@ -12,8 +12,8 @@ jobs:
       - name: Markdown to TeX
         uses: actions/setup-python@v1
         run: |
-        python ./ebooks/md-to-tex.py .
-        cp ebooks/cover.jpg ebooks/wisdom.md.tex ebooks/wisdom.tex .
+          python ./ebooks/md-to-tex.py .
+          cp ebooks/cover.jpg ebooks/wisdom.md.tex ebooks/wisdom.tex .
       - name: Generate PDF document
         uses: hspaans/latexmk-action@v2.1.0
         with:
