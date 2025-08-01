@@ -14,6 +14,8 @@ jobs:
         run: python ./ebooks/md-to-tex.py .
       - name: Generate PDF document
         uses: hspaans/latexmk-action@v2.1.0
+        working-directory: ./ebooks
         with:
           format: pdf
-          filename: ebooks/wisdom.tex
+          filename: wisdom.tex
+          options: -xelatex
