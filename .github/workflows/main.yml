@@ -10,7 +10,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: Markdown to TeX
-        run: python md-to-tex.py .
+        run: python ./ebooks/md-to-tex.py .
       - name: Generate PDF document
         uses: hspaans/latexmk-action@v2.1.0
         with:
