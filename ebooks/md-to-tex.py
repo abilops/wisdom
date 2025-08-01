@@ -4,8 +4,16 @@ import os
 import sys
 import re
 
-INPUT="../wisdom.md"
-OUTPUT="wisdom.md.tex"
+ROOT = "."
+if len(sys.argv) == 2:
+    ROOT = sys.argv[1]
+
+INPUT=os.path.join(ROOT, "wisdom.md")
+DIR = os.path.dirname(INPUT)
+BASE = os.path.basename(INPUT)
+OUTPUT = os.path.join(DIR, 'ebooks', BASE+".tex")
+print(f"Reading from {INPUT}")
+
 ESCAPE=['%', '\\$', '#', '@', '&','\\^']
 
 class LatexWriter():
@@ -68,4 +76,4 @@ for i in range(len(wisdoms)):
 
 with open(OUTPUT, 'w') as f:
     f.write('\n'.join(out))
-
+print(f"Wrote to {OUTPUT}")
