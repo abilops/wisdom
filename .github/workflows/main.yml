@@ -1,15 +1,16 @@
 ---
-name: CI
+name: Build PDF with LaTeX
 
 on: [push]
 
 jobs:
-  build-test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: Markdown to TeX
+        uses: actions/setup-python@v1
         run: python ./ebooks/md-to-tex.py .
       - name: Generate PDF document
         uses: hspaans/latexmk-action@v2.1.0
