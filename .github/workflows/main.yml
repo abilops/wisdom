@@ -20,3 +20,40 @@ jobs:
           format: pdf
           filename: wisdom.tex
           options: -xelatex
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Run Python script
+        run: python ebooks/md-to-tex.py .  
+
+      - name: Copy generated files
+        run: |
+          cp ebooks/cover.jpg ebooks/wisdom.tex ebooks/wisdom.md.tex .
+
+      - name: Install TeX Live
+        run: sudo apt-get install texlive-xetex texlive-fonts-recommended texlive-fonts-extra
+
+      - name: Run XeLaTeX
+        run: |
+          xelatex -pdf wisdom.tex
+
