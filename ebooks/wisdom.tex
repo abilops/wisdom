@@ -33,21 +33,27 @@
 
 
 \begin{document}%
+% Cover image!
 \includepdf{cover.jpg}
 % Reset page numbers
 \setcounter{page}{1}
+% For the Markdown "----"
 \newcommand{\dashdash}{\\[3em]$\ast\ \ast\ \ast$}
+% Counter for each line of wisdom
 \newcounter{wcounter}
 \setcounter{wcounter}{0}
+% Vertically center by removing those comments
 \newcommand{\middleset}[1]{%
 %\vspace*{\fill}
 #1 %
 %\vspace*{\fill}
 }
+
+% Set the wisdom line
 \newcommand{\wisdom}[2][]{%
 		% Increment counter only if this is a top
 		\ifstrequal{#1}{}{\stepcounter{wcounter}}{}
-		% break page only if this is a top
+		% break page only if this is a top-level and not corollary or related
 		\ifstrequal{#1}{}{\clearpage}{\\[2em]}
 				\ifstrequal{#1}{}{
 				\begin{center}
@@ -58,12 +64,8 @@
 				}
 		\middleset{\Large #2}
 }
-%\newcommand\done[2][\relax]{%
-%    \ifx#2\todo\@todofalse\else
-%        \ifx#2\Todo\@todofalse\else
-%        \PackageWarning{Floating \string\done\space ignored.}%
-%\fi\fi
 
+% With the definitions done, we can just pour in the wisdoms!
 \include{wisdom.md.tex}
 
 \end{document}  
