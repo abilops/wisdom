@@ -23,7 +23,7 @@ jobs:
           cp ebooks/cover.jpg ebooks/wisdom.tex ebooks/wisdom.md.tex .
 
       - name: Install TeX Live
-        run: sudo apt-get install texlive-xetex texlive-fonts-recommended texlive-fonts-extra
+        uses: paolobrasolin/setup-texlive-action@v1
 
       - name: Run XeLaTeX
         run: |
