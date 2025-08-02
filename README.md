@@ -11,3 +11,6 @@ It's only advice for you because it **had** to be advice for me.
 ----
 
 On to [**the Wisdom »**](http://wisdom.limo)
+
+---
+[![Build PDF with LaTeX](https://github.com/abilops/wisdom/actions/workflows/main.yml/badge.svg)](https://github.com/abilops/wisdom/actions/workflows/main.yml)
