@@ -22,10 +22,15 @@ jobs:
         run: |
           cp ebooks/cover.jpg ebooks/wisdom.tex ebooks/wisdom.md.tex .
 
-      - name: Install TeX Live
-        uses: paolobrasolin/setup-texlive-action@v1
-
-      - name: Run XeLaTeX
-        run: |
-          xelatex -pdf wisdom.tex
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: wisdom.tex
+          latexmk_use_xelatex: true
+          
+      - name: Upload PDF file
+        uses: actions/upload-artifact@v4
+        with:
+          name: PDF
+          path: wisdom.pdf
 
