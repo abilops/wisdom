@@ -14,6 +14,7 @@ INPUT = os.path.join(ROOT, "wisdom.md")
 DIR = os.path.dirname(INPUT)
 BASE = os.path.basename(INPUT)
 OUTPUT = os.path.join(DIR, 'ebooks', BASE+".tex")
+PRE = os.path.join(DIR, 'ebooks', "pre.tex")
 print(f"Reading from {INPUT}")
 
 # All symbols that trip up the LaTeX compiler
@@ -58,18 +59,50 @@ class LatexWriter():
             command = ''
         return "\\wisdom" + "[" + command + "]" + "{" + lines + "}" 
         # return "\\" + command + "{" + lines + "}" 
+    def item(self, line):
+        return "\\remark{" + line + "}"
+    def by(self, line):
+        return "\\byline{" + line + "}"
+    def text(self, line):
+        return line + "\\\\"
+    def section(self, line):
+        return "\\section*{" + line + "}"
 
 # Read input
 with open(INPUT, 'r') as f:
     wisdoms = f.readlines()
 
 # Ignore everything above this line
-start = wisdoms.index("## The Wisdom So Far\n")
-wisdoms = wisdoms[start:]
+start = wisdoms.index("## Voi ch'entrate…\n")
+wstart = wisdoms.index("## The Wisdom So Far\n")
 
 Writer = LatexWriter()
+pre = []
+for i in range(start, wstart):
+    line = wisdoms[i]
+    # Remove whitespace from both sides
+    line = line.strip()
+    if line.startswith('- '):
+        pre.append(Writer.item(line[2:]))
+    elif line.startswith('---'):
+        continue
+    elif line.startswith('—'):
+        pre.append(Writer.by(line[1:]))
+    elif line.startswith('## '):
+        pre.append(Writer.section(line[3:]))
+    elif line == '':
+        continue
+    else:
+        pre.append(Writer.text(line))
+
+# Write pre
+with open(PRE, 'w') as f: 
+    f.write('\n'.join(pre))
+print(f"Wrote to {PRE}")
+
+
 out = []
-for i in range(len(wisdoms)):
+for i in range(wstart, len(wisdoms)):
     line = wisdoms[i]
     # Remove whitespace from both sides
     line = line.strip()
@@ -84,6 +117,10 @@ for i in range(len(wisdoms)):
     # Most popular
     elif line.startswith('- '):
         out.append(Writer.wisdom(line[2:]))
+    elif line.startswith('## '):
+        out.append(Writer.section(line[3:]))
+    else:
+        continue
 
 # Write out
 with open(OUTPUT, 'w') as f:
